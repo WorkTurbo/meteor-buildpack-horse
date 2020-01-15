@@ -226,7 +226,7 @@ echo_with_time "Install Dependencies - Complete"
 echo_with_time "Install Packages - Start"
 if [ -e "$APP_SOURCE_DIR"/git-packages.json ]; then
   echo_with_time "Installing mgp"
-  $METEOR_NPM install -g mgp
+  $METEOR_NPM install -g git://github.com/workturbo/mgp.git#fix_native_deprecation
   echo_with_time "Installing the packages"
   if [ "$GIT_SSH_KEY" != "" ]; then
     mgp
@@ -279,8 +279,8 @@ echo_with_time "Moving built slug complete"
 echo_with_time "Installing npm production dependencies on built slug"
 if [ -e "$COMPILE_DIR"/app/programs/server/package.json ]; then
   cd "$COMPILE_DIR"/app/programs/server
-  $METEOR_NPM prune --production --userconfig $APP_SOURCE_DIR/.npmrc
-  #$METEOR_NPM install --production --userconfig $APP_SOURCE_DIR/.npmrc
+  #$METEOR_NPM prune --production --userconfig $APP_SOURCE_DIR/.npmrc
+  $METEOR_NPM install --production --userconfig $APP_SOURCE_DIR/.npmrc
   cd "$APP_SOURCE_DIR"
 fi
 echo_with_time "Installing npm production dependencies - complete"
